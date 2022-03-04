@@ -13,8 +13,6 @@ input.onButtonPressed(Button.B, function () {
 })
 let offText = ""
 let onText = ""
-let vypinaciHodnota = 0
-let zapinaciHodnota = 0
 radio.setGroup(1)
 onText = "alarm_on"
 offText = "alarm_off"
