@@ -26,11 +26,11 @@ namespace Alarm {
     /**
     * Spustí alarm a pošle všem zařízením v okolí pokyn ke spuštění alarmu
     */
-    //% block="Spusť alarm a pošli pokyn %text %onvalue"
+    //% block="Spusť alarm a pošli pokyn %text"
 
-    export function SpustitAlarmAOdesli(text: string, onvalue: number): void {
+    export function SpustitAlarmAOdesli(text: string): void {
         if(alarm == false) {
-            radio.sendValue(text, onvalue)
+            radio.sendString(text)
         }
         alarm = true
         basic.showLeds(`
@@ -45,11 +45,11 @@ namespace Alarm {
     /**
     * Vypne alarm a pošle všem zařízením v okolí pokyn k vypnutí alarmu
     */
-    //% block="Vypni alarm a pošli pokyn %text %offvalue"
+    //% block="Vypni alarm a pošli pokyn %text"
 
-    export function VypnoutAlarmAOdesli(text: string, offvalue: number): void {
+    export function VypnoutAlarmAOdesli(text: string): void {
         if(alarm == true) {
-            radio.sendValue(text, offvalue)
+            radio.sendString(text)
         }
         alarm = false
         basic.showLeds(`
