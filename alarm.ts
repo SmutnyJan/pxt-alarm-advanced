@@ -28,7 +28,7 @@ namespace Alarm {
     */
     //% block="Spusť alarm a pošli pokyn %text"
 
-    export function SpustitAlarmAOdesli(text: string): void {
+    export function spustitAlarmAOdesli(text: string): void {
         if(alarm == false) {
             radio.sendString(text)
         }
@@ -47,7 +47,7 @@ namespace Alarm {
     */
     //% block="Vypni alarm a pošli pokyn %text"
 
-    export function VypnoutAlarmAOdesli(text: string): void {
+    export function vypnoutAlarmAOdesli(text: string): void {
         if(alarm == true) {
             radio.sendString(text)
         }
