@@ -1,15 +1,5 @@
-/**
- * Použijte tento soubor k definování personalizovaných funkcí a bloků.
- * Přečtěte si více na https://makecode.microbit.org/blocks/custom
- */
-
-
-/**
- * Custom blocks
- */
-//% weight=100 color=#d1242c icon="\uf0f3"
-namespace Alarm {
-
+//% weight=100 color=#d1242c icon="\uf0f3" block="Alarm"
+namespace alarm {
     let alarm = false
 
     basic.showLeds(`
@@ -20,17 +10,15 @@ namespace Alarm {
         . . . . .
         `)
 
-
-
-
     /**
     * Spustí alarm a pošle všem zařízením v okolí pokyn ke spuštění alarmu
+    * @message Pokyn
     */
-    //% block="Spusť alarm a pošli pokyn %text"
+    //% block="Spusť alarm a pošli pokyn %message"
 
-    export function spustitAlarmAOdesli(text: string): void {
+    export function turnOnAlarmAndBroadcast(message: string): void {
         if(alarm == false) {
-            radio.sendString(text)
+            radio.sendString(message)
         }
         alarm = true
         basic.showLeds(`
@@ -44,12 +32,13 @@ namespace Alarm {
 
     /**
     * Vypne alarm a pošle všem zařízením v okolí pokyn k vypnutí alarmu
+    * @message Pokyn
     */
-    //% block="Vypni alarm a pošli pokyn %text"
+    //% block="Vypni alarm a pošli pokyn %message"
 
-    export function vypnoutAlarmAOdesli(text: string): void {
+    export function turnOffAlarmAndBroadcast(message: string): void {
         if(alarm == true) {
-            radio.sendString(text)
+            radio.sendString(message)
         }
         alarm = false
         basic.showLeds(`

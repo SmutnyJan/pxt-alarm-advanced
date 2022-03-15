@@ -1,15 +1,15 @@
 input.onButtonPressed(Button.A, function () {
-    Alarm.spustitAlarmAOdesli(onText)
+    alarm.turnOnAlarmAndBroadcast(onText)
 })
 radio.onReceivedString(function (receivedString) {
     if (receivedString == onText) {
-        Alarm.spustitAlarmAOdesli(onText)
+        alarm.turnOnAlarmAndBroadcast(onText)
     } else if (receivedString == offText) {
-        Alarm.vypnoutAlarmAOdesli(offText)
+        alarm.turnOffAlarmAndBroadcast(offText)
     }
 })
 input.onButtonPressed(Button.B, function () {
-    Alarm.vypnoutAlarmAOdesli(offText)
+    alarm.turnOffAlarmAndBroadcast(offText)
 })
 let offText = ""
 let onText = ""
