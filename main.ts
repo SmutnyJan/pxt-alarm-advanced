@@ -1,14 +1,45 @@
+alarm.onGuardAwaken(function () {
+    music.playTone(262, music.beat(BeatFraction.Whole))
+})
 input.onButtonPressed(Button.A, function () {
+    basic.showLeds(`
+        . . # . .
+        . # # # .
+        . # # # .
+        # # # # #
+        . . # . .
+        `)
     alarm.turnOnAlarmAndBroadcast(onText)
 })
 radio.onReceivedString(function (receivedString) {
     if (receivedString == onText) {
-        alarm.turnOnAlarmAndBroadcast(onText)
+        basic.showLeds(`
+            . . # . .
+            . # # # .
+            . # # # .
+            # # # # #
+            . . # . .
+            `)
+        alarm.turnOnAlarmAndBroadcast(receivedString)
     } else if (receivedString == offText) {
-        alarm.turnOffAlarmAndBroadcast(offText)
+        basic.showLeds(`
+            . . # . .
+            . # # # .
+            . # # # .
+            # # # # #
+            . . . . .
+            `)
+        alarm.turnOffAlarmAndBroadcast(receivedString)
     }
 })
 input.onButtonPressed(Button.B, function () {
+    basic.showLeds(`
+        . . # . .
+        . # # # .
+        . # # # .
+        # # # # #
+        . . . . .
+        `)
     alarm.turnOffAlarmAndBroadcast(offText)
 })
 let offText = ""
@@ -16,6 +47,10 @@ let onText = ""
 radio.setGroup(1)
 onText = "alarm_on"
 offText = "alarm_off"
-basic.forever(function () {
-	
-})
+basic.showLeds(`
+    . . # . .
+    . # # # .
+    . # # # .
+    # # # # #
+    . . . . .
+    `)

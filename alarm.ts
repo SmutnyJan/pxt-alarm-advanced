@@ -1,14 +1,8 @@
 //% weight=100 color=#d1242c icon="\uf0f3" block="Alarm"
 namespace alarm {
     let alarm = false
+    let methodLock = false
 
-    basic.showLeds(`
-        . . # . .
-        . # # # .
-        . # # # .
-        # # # # #
-        . . . . .
-        `)
 
     /**
     * Spustí alarm a pošle všem zařízením v okolí pokyn ke spuštění alarmu
@@ -17,17 +11,10 @@ namespace alarm {
     //% block="Spusť alarm a pošli pokyn %message"
 
     export function turnOnAlarmAndBroadcast(message: string): void {
-        if(alarm == false) {
+        if (alarm == false) {
             radio.sendString(message)
         }
         alarm = true
-        basic.showLeds(`
-        . . # . .
-        . # # # .
-        . # # # .
-        # # # # #
-        . . # . .
-        `)
     }
 
     /**
@@ -37,26 +24,39 @@ namespace alarm {
     //% block="Vypni alarm a pošli pokyn %message"
 
     export function turnOffAlarmAndBroadcast(message: string): void {
-        if(alarm == true) {
+        if (alarm == true) {
             radio.sendString(message)
         }
         alarm = false
-        basic.showLeds(`
-        . . # . .
-        . # # # .
-        . # # # .
-        # # # # #
-        . . . . .
-        `)
     }
 
 
-    basic.forever(function () {
-        if (alarm) {
-            music.playTone(262, music.beat(BeatFraction.Whole))
-            music.playTone(294, music.beat(BeatFraction.Whole))
-        }
-    })
+    /**
+    * Zkontroluje, jestli nedošlo k pohybu
+    * @action Příkazy, které se provedou při moc zapnutí alarmu
+    */
+    //% block="Při zapnutí alarmu"
+    export function onGuardAwaken(action: () => void) {
+        const eventID = 111 + Math.randomRange(0, 100);
+
+        control.onEvent(eventID, 0, function () {
+            control.inBackground(() => {
+                methodLock = true
+                action()
+                methodLock = false
+            })
+        })
+
+        control.inBackground(() => {
+            while (true) {
+                if (alarm) {
+                    action()
+                }
+                basic.pause(20)
+            }
+        })
+    }
+
 
 
 
