@@ -1,4 +1,4 @@
-alarm.onGuardAwaken(function () {
+alarm.onAlarm(function () {
     music.playTone(262, music.beat(BeatFraction.Whole))
 })
 input.onButtonPressed(Button.A, function () {
@@ -20,7 +20,7 @@ radio.onReceivedString(function (receivedString) {
             # # # # #
             . . # . .
             `)
-        alarm.turnOnAlarmAndBroadcast(receivedString)
+        alarm.turnOnAlarmAndBroadcast(onText)
     } else if (receivedString == offText) {
         basic.showLeds(`
             . . # . .
@@ -29,7 +29,7 @@ radio.onReceivedString(function (receivedString) {
             # # # # #
             . . . . .
             `)
-        alarm.turnOffAlarmAndBroadcast(receivedString)
+        alarm.turnOffAlarmAndBroadcast(offText)
     }
 })
 input.onButtonPressed(Button.B, function () {
